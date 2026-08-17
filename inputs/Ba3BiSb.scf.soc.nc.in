@@ -1,0 +1,43 @@
+&control
+    calculation = 'scf'
+    prefix      = 'Ba3BiSb_soc_nc'
+    outdir      = './out_soc_nc'
+    pseudo_dir  = './pseudo_nc'
+    disk_io     = 'high'
+    verbosity   = 'high'
+/
+&system
+    ibrav       = 0
+    nat         = 5
+    ntyp        = 3
+    ecutwfc     = 70.0          ! MUST match non-SOC deck
+    ecutrho     = 280.0         ! MUST match non-SOC deck
+    nbnd        = 96            ! 60 occupied spinor bands + margin
+    occupations = 'smearing'
+    smearing    = 'mp'
+    degauss     = 0.01
+    noncolin    = .true.        ! spinor wavefunctions
+    lspinorb    = .true.        ! spin-orbit coupling on
+    nosym       = .true.        ! MUST match non-SOC deck
+    noinv       = .true.
+/
+&electrons
+    conv_thr    = 1.0d-8
+    mixing_beta = 0.3
+/
+ATOMIC_SPECIES
+  Ba  137.327  Ba_FR.upf        ! norm-conserving fully-relativistic (pseudo-dojo NC-FR PBE v0.4)
+  Bi  208.980  Bi_FR.upf
+  Sb  121.760  Sb_FR.upf
+CELL_PARAMETERS angstrom
+  6.475900  0.000000  0.000000
+  0.000000  6.475900  0.000000
+  0.000000  0.000000  6.475900
+ATOMIC_POSITIONS crystal
+  Ba  0.000000  0.500000  0.500000
+  Ba  0.500000  0.000000  0.500000
+  Ba  0.500000  0.500000  0.000000
+  Bi  0.000000  0.000000  0.000000
+  Sb  0.500000  0.500000  0.500000
+K_POINTS automatic
+  4 4 4  0 0 0                  ! MUST match non-SOC deck

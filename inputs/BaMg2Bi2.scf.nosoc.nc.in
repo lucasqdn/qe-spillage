@@ -1,0 +1,43 @@
+&control
+    calculation = 'scf'
+    prefix      = 'BaMg2Bi2_nosoc_nc'
+    outdir      = './out_nosoc_nc_BaMg2Bi2'
+    pseudo_dir  = './pseudo_nc'
+    disk_io     = 'high'
+    verbosity   = 'high'
+/
+&system
+    ibrav       = 0
+    nat         = 5
+    ntyp        = 3
+    ecutwfc     = 70.0
+    ecutrho     = 280.0
+    nbnd        = 48            ! 30 occupied (60 e-, spin-degenerate) + margin
+    occupations = 'smearing'
+    smearing    = 'mp'
+    degauss     = 0.01
+    noncolin    = .false.
+    lspinorb    = .false.
+    nosym       = .true.
+    noinv       = .true.
+/
+&electrons
+    conv_thr    = 1.0d-8
+    mixing_beta = 0.3
+/
+ATOMIC_SPECIES
+  Ba  137.327  Ba_SR.upf
+  Mg   24.305  Mg_SR.upf
+  Bi  208.980  Bi_SR.upf
+CELL_PARAMETERS angstrom
+  2.452894  -4.248537  0.000000
+  2.452894   4.248537  0.000000
+  0.000000   0.000000  8.292682
+ATOMIC_POSITIONS crystal
+  Ba  0.000000  0.000000  0.000000
+  Mg  0.666667  0.333333  0.376450
+  Mg  0.333333  0.666667  0.623550
+  Bi  0.333333  0.666667  0.263202
+  Bi  0.666667  0.333333  0.736798
+K_POINTS automatic
+  6 6 4  0 0 0                  ! gamma-centered; hexagonal P-3m1 (a=b, longer c)

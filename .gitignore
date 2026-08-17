@@ -1,0 +1,23 @@
+# QE run directories: wavefunctions, charge density, xml.
+# These are ~33 GB for the runs in this repo and must never be committed.
+out_*/
+*.save/
+*.wfc*
+*.hdf5
+
+# Pseudopotentials are not vendored. Download from pseudo-dojo.org
+# (NC v0.4, PBE, standard accuracy; SR for the non-SOC run, FR for the SOC run).
+pseudo/
+pseudo_nc/
+*.upf
+*.UPF
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv*/
+
+# Editors / OS
+.DS_Store
+*.swp

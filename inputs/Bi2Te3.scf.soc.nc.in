@@ -1,0 +1,42 @@
+&control
+    calculation = 'scf'
+    prefix      = 'Bi2Te3_soc_nc'
+    outdir      = './out_soc_nc_Bi2Te3'
+    pseudo_dir  = './pseudo_nc'
+    disk_io     = 'high'
+    verbosity   = 'high'
+/
+&system
+    ibrav       = 0
+    nat         = 5
+    ntyp        = 2
+    ecutwfc     = 70.0          ! MUST match non-SOC deck
+    ecutrho     = 280.0         ! MUST match non-SOC deck
+    nbnd        = 124           ! 78 occupied spinor bands + margin
+    occupations = 'smearing'
+    smearing    = 'mp'
+    degauss     = 0.01
+    noncolin    = .true.
+    lspinorb    = .true.
+    nosym       = .true.
+    noinv       = .true.
+/
+&electrons
+    conv_thr    = 1.0d-8
+    mixing_beta = 0.3
+/
+ATOMIC_SPECIES
+  Bi   208.98040  Bi_FR.upf
+  Te   127.60000  Te_FR.upf
+CELL_PARAMETERS angstrom
+   10.71327276    0.01751857    0.01042310
+    9.78171723    4.36950219    0.01042310
+    9.78171723    2.09380824    3.83518207
+ATOMIC_POSITIONS crystal
+  Bi    0.39916915   0.39916915   0.39916915
+  Bi    0.60083085   0.60083085   0.60083085
+  Te    0.21197595   0.21197595   0.21197595
+  Te    0.00000000   0.00000000   0.00000000
+  Te    0.78802405   0.78802405   0.78802405
+K_POINTS automatic
+  6 6 6  0 0 0                  ! MUST match non-SOC deck

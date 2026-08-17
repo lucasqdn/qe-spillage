@@ -1,0 +1,39 @@
+&control
+    calculation = 'scf'
+    prefix      = 'PbTe_nosoc_nc'
+    outdir      = './out_nosoc_nc_PbTe'
+    pseudo_dir  = './pseudo_nc'
+    disk_io     = 'high'
+    verbosity   = 'high'
+/
+&system
+    ibrav       = 0
+    nat         = 2
+    ntyp        = 2
+    ecutwfc     = 70.0
+    ecutrho     = 280.0
+    nbnd        = 24            ! 15 occupied (30 e-, spin-degenerate) + margin
+    occupations = 'smearing'
+    smearing    = 'mp'
+    degauss     = 0.01
+    noncolin    = .false.
+    lspinorb    = .false.
+    nosym       = .true.
+    noinv       = .true.
+/
+&electrons
+    conv_thr    = 1.0d-8
+    mixing_beta = 0.3
+/
+ATOMIC_SPECIES
+  Te  127.600  Te_SR.upf
+  Pb  207.200  Pb_SR.upf
+CELL_PARAMETERS angstrom
+  4.007212  0.000000  2.313565
+  1.335737  3.778036  2.313565
+  0.000000  0.000000  4.627130
+ATOMIC_POSITIONS crystal
+  Te  0.000000  0.000000  0.000000
+  Pb  0.500000  0.500000  0.500000
+K_POINTS automatic
+  6 6 6  0 0 0                  ! gamma-centered; samples L (band inversion) for FCC PbTe

@@ -1,0 +1,42 @@
+&control
+    calculation = 'scf'
+    prefix      = 'Ba3Bi2_nosoc_nc'
+    outdir      = './out_nosoc_nc_Ba3Bi2'
+    pseudo_dir  = './pseudo_nc'
+    disk_io     = 'high'
+    verbosity   = 'high'
+/
+&system
+    ibrav       = 0
+    nat         = 5
+    ntyp        = 2
+    ecutwfc     = 70.0          ! norm-conserving: above pseudo-dojo standard hints for Ba, Bi
+    ecutrho     = 280.0         ! 4*ecutwfc (norm-conserving)
+    nbnd        = 48            ! 30 occupied (60 e-, spin-degenerate) + margin
+    occupations = 'smearing'
+    smearing    = 'mp'
+    degauss     = 0.01
+    noncolin    = .false.
+    lspinorb    = .false.
+    nosym       = .true.
+    noinv       = .true.
+/
+&electrons
+    conv_thr    = 1.0d-8
+    mixing_beta = 0.3
+/
+ATOMIC_SPECIES
+  Ba  137.327  Ba_SR.upf        ! norm-conserving scalar-relativistic (pseudo-dojo NC-SR PBE v0.4)
+  Bi  208.980  Bi_SR.upf
+CELL_PARAMETERS angstrom
+  6.552138  0.000000  0.000000
+  0.000000  6.552138  0.000000
+  0.000000  0.000000  6.552138
+ATOMIC_POSITIONS crystal
+  Ba  0.000000  0.500000  0.500000
+  Ba  0.500000  0.000000  0.500000
+  Ba  0.500000  0.500000  0.000000
+  Bi  0.000000  0.000000  0.000000
+  Bi  0.500000  0.500000  0.500000
+K_POINTS automatic
+  4 4 4  0 0 0                  ! gamma-centered 4x4x4 = 64 pts (catches off-TRIM peaks)
