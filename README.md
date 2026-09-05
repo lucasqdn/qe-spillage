@@ -15,6 +15,10 @@ The reference implementation in [`jarvis-tools`](https://github.com/usnistgov/ja
 computes the same quantity from the HDF5 wavefunctions written by Quantum ESPRESSO's `pw.x`,
 which is free software.
 
+The detailed derivation and worked example are in
+[`docs/Calculation of DFT Spin-Orbit Spillage with Quantum ESPRESSO.pdf`](<docs/Calculation of DFT Spin-Orbit Spillage with Quantum ESPRESSO.pdf>).
+The LaTeX source is stored beside the PDF.
+
 ## Validation
 
 Reproduces published JARVIS (VASP) values to within 1% on clean-gap insulators.
@@ -24,13 +28,17 @@ Reproduces published JARVIS (VASP) values to within 1% on clean-gap insulators.
 | BaMg₂Bi₂ | JVASP-4053 | insulator | 6×6×4 | 60 | **2.094** | 2.075 | +0.9% |
 | Bi₂Se₃ | JVASP-1067 | insulator | 6×6×6 | 78 | **2.1146** | 2.098 | +0.8% |
 | Bi₂Te₃ | JVASP-25 | insulator | 6×6×6 | 78 | **2.1116** | 2.094 | +0.8% |
-| PbTe | JVASP-1103 | insulator | 6×6×6 | 30 | **2.010** | none published | — |
+| PbTe | JVASP-1103 | insulator | 6×6×6 | 30 | **2.010** | not in JARVIS | — |
 | Ba₃BiSb | JVASP-36485 | semimetal | 4×4×4 | 60 | 2.016 | 2.267 | −11% |
 | Ba₃Bi₂ | JVASP-36513 | semimetal | 4×4×4 | 60 | 2.78 | 4.097 | −32% |
 
-All three insulators land on the same side of VASP by the same amount, which reads as a small
-systematic QE-NC vs VASP-PAW offset rather than scatter. The two semimetals are a different
-story — see [Scope](#scope) below.
+All three JARVIS-validated insulators land on the same side of VASP by the same amount. This reads
+as a small systematic QE-NC vs VASP-PAW offset rather than scatter. The two semimetals are a
+different story. See [Scope](#scope) below.
+
+A separate 2026 conference paper reports a PbTe spillage of 2.200, a 9.5% difference from the
+2.010 calculated here. It also reports 2.320 for BaMg₂Bi₂, 2.315 for Bi₂Te₃, and 2.306 for
+Ba₃BiSb [6].
 
 The Bi₂Se₃ result also agrees to 0.3% with the 2.12 that Liu and Vanderbilt originally reported
 at Γ, computed in QE with a different pseudopotential table, cutoff and mesh.
@@ -141,6 +149,8 @@ inputs/                      QE decks, {material}.scf.{nosoc,soc}.{nc,fx,paw}.in
 slurm/                       SLURM submission scripts
 reference/scf-logs/          QE SCF logs for every run in the table above
 reference/spillage/          per-k gamma(k) tables produced by the post-processors
+docs/                        detailed LaTeX explanation and rendered PDF
+pseudo_nc/                   downloaded PseudoDojo files (untracked)
 ```
 
 Input suffixes: `nc` norm-conserving with smearing, `fx` norm-conserving with
@@ -162,3 +172,18 @@ Wavefunction directories (`out_*/`) are not tracked — the runs behind this tab
    [J. Phys.: Condens. Matter **29**, 465901 (2017)](https://doi.org/10.1088/1361-648X/aa8f79).
 5. M. J. van Setten *et al.*, *The PseudoDojo*,
    [Comput. Phys. Commun. **226**, 39 (2018)](https://doi.org/10.1016/j.cpc.2018.01.012).
+6. P. C. H. Li, S. Roonasi, K. H. Wong and S. Rehmat,
+   *Topological quantum materials for chemical sensing*, The International Conference on Chemical
+   Engineering and Environmental Technology (ICCEET-26), Hong Kong, November 5-6, 2026.
+
+## License
+
+Unless otherwise stated, the source code and original repository materials are licensed under the
+[MIT License](LICENSE).
+
+The manuscript source and rendered manuscript files under `docs/` are licensed separately under the
+[Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+Quantum ESPRESSO, JARVIS, third-party data, pseudopotentials, and other third-party materials are not
+relicensed by this repository. They remain subject to their original licenses and terms.
+Pseudopotential files are not distributed with this repository.
